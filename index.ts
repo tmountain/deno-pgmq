@@ -1,6 +1,6 @@
 import { Pool } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
 // Automatically load environment variables from a `.env` file
-import "@std/dotenv/load";
+import "jsr:@std/dotenv/load";
 
 import { QueueManager } from "./queue-manager/index.ts";
 import { MsgManager } from "./msg-manager/index.ts";

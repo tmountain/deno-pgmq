@@ -2,8 +2,11 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "jsr:@std/assert": "jsr:@std/assert@1.0.5",
       "jsr:@std/assert@^1.0.5": "jsr:@std/assert@1.0.5",
+      "jsr:@std/dotenv": "jsr:@std/dotenv@0.225.2",
       "jsr:@std/dotenv@^0.225.2": "jsr:@std/dotenv@0.225.2",
+      "jsr:@std/expect": "jsr:@std/expect@1.0.3",
       "jsr:@std/expect@^1.0.3": "jsr:@std/expect@1.0.3",
       "jsr:@std/internal@^1.0.3": "jsr:@std/internal@1.0.3"
     },

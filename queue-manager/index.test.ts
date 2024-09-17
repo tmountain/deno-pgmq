@@ -1,5 +1,5 @@
-import { assertStrictEquals, assertArrayIncludes } from "@std/assert";
-import { expect } from "@std/expect";
+import { assertStrictEquals, assertArrayIncludes } from "jsr:@std/assert";
+import { expect } from "jsr:@std/expect";
 import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
 import { Pgmq } from "../index.ts"; // Assuming Pgmq is being imported from the module you're working on
 

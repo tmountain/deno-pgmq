@@ -1,4 +1,4 @@
-import { assert, assertStrictEquals, assertRejects } from "@std/assert";
+import { assert, assertStrictEquals, assertRejects } from "jsr:@std/assert";
 import { Pgmq } from "../index.ts";
 import type { Message } from "./types.ts";
 import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
