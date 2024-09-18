@@ -1,15 +1,8 @@
 import type { DbQueueMetrics, Queue, QueueMetrics } from "./types.ts";
 
 /*
-export const parseDbQueue = (q: string): Queue => {
-	const parts = q.substring(1, q.length - 1).split(",");
-	return {
-		name: parts[0],
-		createdAt: new Date(parts[1]),
-		isPartitioned: parts[2] === "t",
-		isUnlogged: parts[3] === "t",
-	};
-};
+
+PGMQ internals:
 
 select pgmq.list_queues();
                    list_queues
@@ -45,9 +38,15 @@ CREATE TYPE pgmq.queue_record AS (
     created_at TIMESTAMP WITH TIME ZONE
 );
 */
-// write a correct version of parseDbQueue...
+
 export const parseDbQueue = (q: string): Queue => {
+  // Ensure the input has the expected number of parts (4)
   const parts = q.substring(1, q.length - 1).split(",");
+
+  if (parts.length !== 4) {
+    throw new Error("Malformed input: expected 4 parts");
+  }
+
   return {
     name: parts[0],
     createdAt: new Date(parts[3]),
