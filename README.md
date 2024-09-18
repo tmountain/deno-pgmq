@@ -115,7 +115,7 @@ await pgmq.msg.archive(qName, msgId).catch((err) => {
   - [x] [archive (batch)](https://tembo-io.github.io/pgmq/api/sql/functions/#archive-batch)
 - [ ] [Queue Management](https://tembo-io.github.io/pgmq/api/sql/functions/#queue-management)
   - [x] [create](https://tembo-io.github.io/pgmq/api/sql/functions/#create)
-  - [ ] [create_partitioned](https://tembo-io.github.io/pgmq/api/sql/functions/#create_partitioned)
+  - [x] [create_partitioned](https://tembo-io.github.io/pgmq/api/sql/functions/#create_partitioned)
   - [x] [create_unlogged](https://tembo-io.github.io/pgmq/api/sql/functions/#create_unlogged)
   - [x] [detach_archive](https://tembo-io.github.io/pgmq/api/sql/functions/#detach_archive)
   - [x] [drop_queue](https://tembo-io.github.io/pgmq/api/sql/functions/#drop_queue)
