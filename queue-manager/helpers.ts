@@ -47,26 +47,24 @@ CREATE TYPE pgmq.queue_record AS (
 */
 // write a correct version of parseDbQueue...
 export const parseDbQueue = (q: string): Queue => {
-	const parts = q.substring(1, q.length - 1).split(",");
-	return {
-		name: parts[0],
-		createdAt: new Date(parts[3]),
-		isPartitioned: parts[1] === "t",
-		isUnlogged: parts[2] === "t",
-	};
+  const parts = q.substring(1, q.length - 1).split(",");
+  return {
+    name: parts[0],
+    createdAt: new Date(parts[3]),
+    isPartitioned: parts[1] === "t",
+    isUnlogged: parts[2] === "t",
+  };
 };
 
 export const parseDbQueueMetrics = (m: DbQueueMetrics): QueueMetrics => ({
-	queueName: m.queue_name,
-	queueLength: Number.parseInt(m.queue_length),
-	newestMsgAgeSec:
-		m.newest_msg_age_sec != null
-			? Number.parseInt(m.newest_msg_age_sec)
-			: undefined,
-	oldestMsgAgeSec:
-		m.oldest_msg_age_sec != null
-			? Number.parseInt(m.oldest_msg_age_sec)
-			: undefined,
-	totalMessages: Number.parseInt(m.total_messages),
-	scrapeTime: new Date(m.scrape_time),
+  queueName: m.queue_name,
+  queueLength: Number.parseInt(m.queue_length),
+  newestMsgAgeSec: m.newest_msg_age_sec != null
+    ? Number.parseInt(m.newest_msg_age_sec)
+    : undefined,
+  oldestMsgAgeSec: m.oldest_msg_age_sec != null
+    ? Number.parseInt(m.oldest_msg_age_sec)
+    : undefined,
+  totalMessages: Number.parseInt(m.total_messages),
+  scrapeTime: new Date(m.scrape_time),
 });

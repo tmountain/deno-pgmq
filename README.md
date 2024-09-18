@@ -4,14 +4,15 @@ Postgres Message Queue (PGMQ) Deno Client Library
 
 ## Installation
 
-To use deno-pgmq in your Deno project, simply import it directly from the module URL. For example:
-
+To use deno-pgmq in your Deno project, simply import it directly from the module
+URL. For example:
 
 ```bash
 import { Pgmq } from "https://deno.land/x/your_module_name@version/mod.ts"; // Replace with your actual module URL and version
 ```
 
 ## Environment Variables (Examples)
+
 ```
 DATABASE_URL=postgres://postgres:password@localhost:5432/postgres
 MAX_POOL_SIZE=20
@@ -28,57 +29,60 @@ docker run -d --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 quay.io
 Then:
 
 ```ts
-// Import the Pgmq class from your module
-import { Pgmq } from "your-database-module-path"; // Replace with your actual module path
-
-// Load environment variables from a .env file if needed
-import "@std/dotenv/load";
+import { Pgmq } from "https://deno.land/x/pgmq@v0.1.2/mod.ts";
 
 console.log("Connecting to Postgres...");
+// Specify the connection parameters manually
 const pgmq = await Pgmq.new({
-    dsn: Deno.env.get("DATABASE_URL"), // Use the DSN from the environment variable
-    lazy: false, // Set lazy loading based on your preference
-    maxPoolSize: Number(Deno.env.get("MAX_POOL_SIZE")) || 20, // Use max pool size from env
+  dsn: Deno.env.get("DATABASE_URL"), // Use the DSN from the environment variable
+  lazy: false, // Set lazy loading based on your preference
+  maxPoolSize: Number(Deno.env.get("MAX_POOL_SIZE")) || 20, // Use max pool size from env
 }).catch((err) => {
-    console.error("Failed to connect to Postgres", err);
-    Deno.exit(1);
+  console.error("Failed to connect to Postgres", err);
+  Deno.exit(1);
 });
+
+// You can also use environment variables to set the connection parameters
+// export DATABASE_URL='postgresql://postgres:postgres@localhost:54322/postgres'
+// const pgmq = await Pgmq.new()
 
 const qName = "my_queue";
 console.log(`Creating queue ${qName}...`);
+
 await pgmq.queue.create(qName).catch((err) => {
-    console.error("Failed to create queue", err);
-    Deno.exit(1);
+  console.error("Failed to create queue", err);
+  Deno.exit(1);
 });
 
 interface Msg {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
+
 const msg: Msg = { id: 1, name: "testMsg" };
 console.log("Sending message...");
 const msgId = await pgmq.msg.send(qName, msg).catch((err) => {
-    console.error("Failed to send message", err);
-    Deno.exit(1);
+  console.error("Failed to send message", err);
+  Deno.exit(1);
 });
 
 const vt = 30;
 const receivedMsg = await pgmq.msg.read<Msg>(qName, vt).catch((err) => {
-    console.error("No messages in the queue", err);
-    Deno.exit(1);
+  console.error("No messages in the queue", err);
+  Deno.exit(1);
 });
 
 console.log("Received message...");
 if (receivedMsg) {
-    console.dir(receivedMsg.message, { depth: null });
+  console.dir(receivedMsg.message, { depth: null });
 } else {
-    console.log("No message received.");
+  console.log("No message received.");
 }
 
 console.log("Archiving message...");
 await pgmq.msg.archive(qName, msgId).catch((err) => {
-    console.error("Failed to archive message", err);
-    Deno.exit(1);
+  console.error("Failed to archive message", err);
+  Deno.exit(1);
 });
 ```
 
@@ -111,10 +115,13 @@ await pgmq.msg.archive(qName, msgId).catch((err) => {
   - [x] [metrics](https://tembo-io.github.io/pgmq/api/sql/functions/#metrics)
   - [x] [metrics_all](https://tembo-io.github.io/pgmq/api/sql/functions/#metrics_all)
 
-## Testing
+## Tasks
 
-To run the tests, use the following command:
+The following tasks are available:
 
-  ```
-  deno test --allow-net --allow-env --allow-read
-  ```
+```
+$ deno task test
+$ deno task lint
+$ deno task fmt
+$ deno task coverage
+```
