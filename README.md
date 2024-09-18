@@ -2,7 +2,7 @@
 
 Postgres Message Queue (PGMQ) Deno Client Library
 
-[pgmq v0.1.2](https://deno.land/x/pgmq@v0.1.2)
+[https://deno.land/x/pgmq@v0.1.2](https://deno.land/x/pgmq@v0.1.2)
 
 ## Installation
 
