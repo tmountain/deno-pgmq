@@ -2,6 +2,8 @@
 
 Postgres Message Queue (PGMQ) Deno Client Library
 
+[pgmq v0.1.2](https://deno.land/x/pgmq@v0.1.2)
+
 ## Installation
 
 To use deno-pgmq in your Deno project, simply import it directly from the module
