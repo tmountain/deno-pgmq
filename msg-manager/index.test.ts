@@ -8,7 +8,7 @@ type TestMessage = { data: string };
 // Test with real database
 Deno.test("MsgManager integration test with real DB", async (t) => {
   // Initialize the Pgmq instance with a real DB connection
-  const pgmq = Pgmq.new();
+  const pgmq = Pgmq.new({ lazy: true }); // Assuming you have a similar setup for pgmq instance
 
   // Define the test queue name
   const testQueue = "test_queue";

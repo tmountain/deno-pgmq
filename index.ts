@@ -9,11 +9,12 @@ import { MsgManager } from "./msg-manager/index.ts";
 const defaultConnectionString = "postgres://user:password@localhost:5432/test";
 
 // Function to create a connection pool
-const createPool = (dsn?: string, maxPoolSize?: number) => {
+const createPool = (dsn?: string, maxPoolSize?: number, lazy?: boolean) => {
   const connectionString = dsn || Deno.env.get("DATABASE_URL") ||
     defaultConnectionString;
   const poolSize = maxPoolSize || Number(Deno.env.get("MAX_POOL_SIZE")) || 20; // Get max pool size from env or use provided value
-  return new Pool(connectionString, poolSize, true); // Adjust pool size as needed
+  const isLazy = lazy || Deno.env.get("LAZY") === "true" || false; // Get lazy flag from env or use provided value
+  return new Pool(connectionString, poolSize, isLazy); // Adjust pool size as needed
 };
 
 export class Pgmq {
@@ -31,15 +32,8 @@ export class Pgmq {
     lazy?: boolean;
     maxPoolSize?: number;
   }) {
-    const pool = createPool(config?.dsn, config?.maxPoolSize);
+    const pool = createPool(config?.dsn, config?.maxPoolSize, config?.lazy);
     const pgmq = new Pgmq(pool);
-
-    // Optionally handle lazy flag if needed
-    if (config?.lazy !== undefined) {
-      console.log(`Lazy loading is set to ${config.lazy}`);
-      // Implement lazy loading behavior if necessary
-    }
-
     return pgmq;
   }
 

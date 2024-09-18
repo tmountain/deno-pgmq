@@ -3,7 +3,7 @@ import { expect } from "jsr:@std/expect";
 import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
 import { Pgmq } from "../index.ts"; // Assuming Pgmq is being imported from the module you're working on
 
-const pgmq = Pgmq.new(); // Assuming you have a similar setup for pgmq instance
+const pgmq = Pgmq.new({ lazy: true }); // Assuming you have a similar setup for pgmq instance
 
 // Helper function to get a queue by name
 const getQueue = async (name: string) => {

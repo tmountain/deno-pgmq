@@ -18,6 +18,7 @@ import { Pgmq } from "https://deno.land/x/pgmq@v0.1.2/mod.ts";
 ```
 DATABASE_URL=postgres://postgres:password@localhost:5432/postgres
 MAX_POOL_SIZE=20
+LAZY=true
 ```
 
 ## Usage
@@ -35,17 +36,22 @@ import { Pgmq } from "https://deno.land/x/pgmq@v0.1.2/mod.ts";
 
 console.log("Connecting to Postgres...");
 // Specify the connection parameters manually
-const pgmq = await Pgmq.new({
-  dsn: Deno.env.get("DATABASE_URL"), // Use the DSN from the environment variable
-  lazy: false, // Set lazy loading based on your preference
-  maxPoolSize: Number(Deno.env.get("MAX_POOL_SIZE")) || 20, // Use max pool size from env
-}).catch((err) => {
+let pgmq;
+try {
+  pgmq = await Pgmq.new({
+    dsn: "postgresql://postgres:postgres@localhost:54322/postgres", // Supabase local
+    lazy: false, // Set lazy loading based on your preference
+    maxPoolSize: 20,
+  });
+} catch (err) {
   console.error("Failed to connect to Postgres", err);
   Deno.exit(1);
-});
+}
 
 // You can also use environment variables to set the connection parameters
-// export DATABASE_URL='postgresql://postgres:postgres@localhost:54322/postgres'
+// $ export DATABASE_URL='postgresql://postgres:postgres@localhost:54322/postgres'
+// $ export LAZY=true
+// $ export MAX_POOL_SIZE=20
 // const pgmq = await Pgmq.new()
 
 const qName = "my_queue";
