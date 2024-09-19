@@ -2,7 +2,7 @@
 
 Postgres Message Queue (PGMQ) Deno Client Library
 
-[https://deno.land/x/pgmq@v0.1.4](https://deno.land/x/pgmq@v0.1.2)
+[https://deno.land/x/pgmq@v0.2.1](https://deno.land/x/pgmq@v0.2.1)
 
 ## Installation
 
@@ -12,7 +12,7 @@ URL.
 For example:
 
 ```bash
-import { Pgmq } from "https://deno.land/x/pgmq@v0.1.4/mod.ts";
+import { Pgmq } from "https://deno.land/x/pgmq@v0.2.1/mod.ts";
 ```
 
 ## Environment Variables (Examples)
@@ -34,16 +34,17 @@ docker run -d --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 quay.io
 Then:
 
 ```ts
-import { Pgmq } from "https://deno.land/x/pgmq@v0.1.4/mod.ts";
+import { Pgmq } from "https://deno.land/x/pgmq@v0.2.1/mod.ts";
 
 console.log("Connecting to Postgres...");
 // Specify the connection parameters manually
-let pgmq;
+let pgmq: Pgmq;
 try {
   pgmq = await Pgmq.new({
-    dsn: "postgresql://postgres:postgres@localhost:54322/postgres", // Supabase local
-    lazy: false, // Set lazy loading based on your preference
-    maxPoolSize: 20,
+    dsn:
+      "postgresql://postgres:postgres@127.0.0.1:54322/postgres?sslmode=require",
+    // Optional parameters
+    caFilePaths: ["./certs/prod-ca-2021.crt"],
   });
 } catch (err) {
   console.error("Failed to connect to Postgres", err);
