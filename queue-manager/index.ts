@@ -17,13 +17,13 @@ export class QueueManager {
   // Create a new queue
   public async create(name: string) {
     using client = await this.pool.connect();
-    await client.queryObject("SELECT pgmq.create($1)", [name]); // Wrapping argument in an array
+    await client.queryObject("SELECT pgmq.create($1)", [name]);
   }
 
   // Create an unlogged queue
   public async createUnlogged(name: string) {
     using client = await this.pool.connect();
-    await client.queryObject("SELECT pgmq.create_unlogged($1)", [name]); // Wrapping argument in an array
+    await client.queryObject("SELECT pgmq.create_unlogged($1)", [name]);
   }
 
   public async createPartitioned(
@@ -42,19 +42,19 @@ export class QueueManager {
   // Drop an existing queue
   public async drop(name: string) {
     using client = await this.pool.connect();
-    await client.queryObject("SELECT pgmq.drop_queue($1)", [name]); // Wrapping argument in an array
+    await client.queryObject("SELECT pgmq.drop_queue($1)", [name]);
   }
 
   // Purge a queue
   public async purge(name: string) {
     using client = await this.pool.connect();
-    await client.queryObject("SELECT pgmq.purge_queue($1)", [name]); // Wrapping argument in an array
+    await client.queryObject("SELECT pgmq.purge_queue($1)", [name]);
   }
 
-  // Detach the archive of a queue (FIXME: appears to be broken)
+  // Detach the archive of a queue (FIXME: undelrying pgmq query is failing in testing)
   public async detachArchive(name: string) {
     using client = await this.pool.connect();
-    await client.queryObject("SELECT pgmq.detach_archive($1)", [name]); // Wrapping argument in an array
+    await client.queryObject("SELECT pgmq.detach_archive($1)", [name]);
   }
 
   // Get metrics for a specific queue
