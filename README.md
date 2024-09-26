@@ -15,6 +15,14 @@ For example:
 import { Pgmq } from "https://deno.land/x/pgmq@v0.2.1/mod.ts";
 ```
 
+## Runtime Environment
+
+Due to a [Deno bug](https://github.com/denoland/deno/issues/22392), please make sure that you are
+using Deno 1.44.1 or later. If you are using this library with Supabase edge functions, make sure
+that the reported runtime compatibility matches this (example below):
+
+    Using supabase-edge-runtime-1.58.3 (compatible with Deno v1.45.2)
+
 ## Environment Variables (Examples)
 
 ```
